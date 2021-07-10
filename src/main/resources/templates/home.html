@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<style type="text/css">
+table {
+	border: 1px solid black;
+}
+
+td {
+	border: 1px solid black;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="mb-2">
+		<div class="col">
+			<nav class="nav">
+				<a class="nav-link" th:href="@{/home}">Home</a> <a class="nav-link"
+					th:href="@{/equipamentos/relatorio}">Equipamentos</a> <a
+					class="nav-link" th:href="@{/tipos/relatorio}">Tipos</a> <a
+					class="nav-link" th:href="@{/setores/relatorio}">Setores</a>
+			</nav>
+		</div>
+	</div>
+
+	<h1>Monitoramento de Energia</h1>
+
+
+
+	<table>
+		<thead>
+			<tr>
+				<td>EQUIPAMENTO</td>
+				<td>TIPO</td>
+				<td>SETOR</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="equipamento : ${equipamentos}">
+				<td th:text="${equipamento.descricao}"></td>
+				<td th:text="${equipamento.tipo}"></td>
+				<td th:text="${equipamento.setor}"></td>
+			</tr>
+
+		</tbody>
+
+	</table>
+</body>
+</html>
