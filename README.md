@@ -18,6 +18,8 @@ Monitorar o consumo mensal de energia de uma empresa, analisando o consumo por s
 
 - Git / GitHub
 
+- Teste de API com Postman
+
   #### :chart_with_upwards_trend: Front End
 
 - Thymeleaf
@@ -37,9 +39,10 @@ Monitorar o consumo mensal de energia de uma empresa, analisando o consumo por s
   #### :game_die: Banco de Dados
 
 - H2 para Desenvolvimento
+
 - PostgreSQL para Produção
 
-### 
+
 
 #### Etapas concluídas
 
@@ -64,6 +67,10 @@ Monitorar o consumo mensal de energia de uma empresa, analisando o consumo por s
 :exclamation: Cadastro de usuários
 
 :exclamation: Autenticação de usuário
+
+:exclamation: Configuração de profiles
+
+:exclamation: Configuração do PostgreSQL para produção
 
 
 
