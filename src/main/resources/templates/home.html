@@ -31,14 +31,20 @@ td {
 	<table>
 		<thead>
 			<tr>
+				<td>ID</td>
 				<td>EQUIPAMENTO</td>
 				<td>TIPO</td>
 				<td>SETOR</td>
+				<td>ÚLTIMO REGISTRO</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="equipamento : ${equipamentos}">
+				<td th:text="${equipamento.id}"></td>
 				<td th:text="${equipamento.descricao}"></td>
+				<td th:text="${equipamento.tipo}"></td>
+				<td th:text="${equipamento.setor}"></td>
+				<td th:text="${equipamento.ult_consumo}"></td>
 			</tr>
 
 		</tbody>

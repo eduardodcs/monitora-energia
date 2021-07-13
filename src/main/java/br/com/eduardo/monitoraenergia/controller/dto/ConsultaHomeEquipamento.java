@@ -1,11 +1,7 @@
 package br.com.eduardo.monitoraenergia.controller.dto;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
-import br.com.eduardo.monitoraenergia.modelo.Setor;
-import br.com.eduardo.monitoraenergia.modelo.Status;
-import br.com.eduardo.monitoraenergia.modelo.Tipo;
 
 public class ConsultaHomeEquipamento {
 	private Long id;

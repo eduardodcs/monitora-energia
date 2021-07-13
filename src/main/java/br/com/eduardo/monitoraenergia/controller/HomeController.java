@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.eduardo.monitoraenergia.controller.dto.ConsultaHomeEquipamento;
-import br.com.eduardo.monitoraenergia.modelo.Equipamento;
-import br.com.eduardo.monitoraenergia.modelo.Status;
+import br.com.eduardo.monitoraenergia.controller.dto.IConsultaHomeEquipamento;
 import br.com.eduardo.monitoraenergia.repository.EquipamentoRepository;
 
 @Controller
@@ -23,7 +22,7 @@ public class HomeController {
 	
 	@GetMapping
 	public String home(Model model){
-		List<ConsultaHomeEquipamento> equipamentos = equipamentoRepository.findByStatusAndUltimoConsumo(Status.ATIVO);
+		List<IConsultaHomeEquipamento> equipamentos = equipamentoRepository.findByStatusAndUltimoConsumo();
 		model.addAttribute("equipamentos", equipamentos);
 		return "home";
 	}
