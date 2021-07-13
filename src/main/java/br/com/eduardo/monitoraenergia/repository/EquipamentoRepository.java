@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import br.com.eduardo.monitoraenergia.controller.dto.ConsultaHomeEquipamento;
-import br.com.eduardo.monitoraenergia.controller.dto.IConsultaHomeEquipamento;
+import br.com.eduardo.monitoraenergia.controller.dto.RelatorioHomeInterface;
 import br.com.eduardo.monitoraenergia.modelo.Equipamento;
 import br.com.eduardo.monitoraenergia.modelo.Status;
 
@@ -21,6 +20,6 @@ public interface EquipamentoRepository extends JpaRepository<Equipamento, Long> 
 			+ "JOIN tipo t ON e.tipo_id = t.id "
 			+ "WHERE e.status = 'ATIVO' "
 			+ "GROUP BY e.id ", nativeQuery = true)
-	List<IConsultaHomeEquipamento> findByStatusAndUltimoConsumo();
+	List<RelatorioHomeInterface> findByStatusAndUltimoConsumo();
 
 }

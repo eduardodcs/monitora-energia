@@ -11,6 +11,11 @@ td {
 	text-align: center;
 }
 </style>
+<script type="text/javascript">
+
+
+</script>
+
 </head>
 <body>
 	<div class="mb-2">
@@ -25,8 +30,6 @@ td {
 	</div>
 
 	<h1>Monitoramento de Energia</h1>
-
-
 
 	<table>
 		<thead>
@@ -48,6 +51,26 @@ td {
 			</tr>
 
 		</tbody>
+
+	</table>
+
+	<table>
+		<thead>
+			<tr>
+				<td>DIA</td>
+				<td>EQUIPAMENTO</td>
+				<td>CONSUMO</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="consumo : ${dadosConsumo}">
+				<td th:text="${consumo.dia}"></td>
+				<td th:text="${consumo.equipamento}"></td>
+				<td th:text="${consumo.consumo}"></td>
+			</tr>
+		</tbody>
+
 
 	</table>
 </body>
