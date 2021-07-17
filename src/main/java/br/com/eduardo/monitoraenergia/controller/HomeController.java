@@ -24,15 +24,10 @@ public class HomeController {
 	@Autowired
 	private ConsumoRepository consumoRepository;
 	
-	
 	@GetMapping
 	public String home(Model model){
-		LocalDate inicio = LocalDate.of(2021, 07, 03);
-		LocalDate fim = LocalDate.of(2021, 07, 05);
 		List<RelatorioHomeInterface> equipamentos = equipamentoRepository.findByStatusAndUltimoConsumo();
-		List<GraficoHomeInterface> dadosConsumo = consumoRepository.findByDatas(inicio, fim);
 		model.addAttribute("equipamentos", equipamentos);
-		model.addAttribute("dadosConsumo", dadosConsumo);
 		return "home";
 	}
 

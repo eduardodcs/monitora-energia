@@ -4,6 +4,9 @@
 <body>
 	<div th:replace="~{base :: menu}"></div>
 	<div class="container">
+		<h2>Julho/2021</h2>
+		<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+
 		<h2>Últimos registros</h2>
 		<table class="table">
 			<thead class="thead-dark">
@@ -20,11 +23,76 @@
 					<th scope="row" th:text="${equipamento.id}"></th>
 					<td th:text="${equipamento.descricao}"></td>
 					<td th:text="${equipamento.tipo}"></td>
-					<td th:text="${equipamento.setor}">@</td>
-					<td th:text="${equipamento.ult_consumo}">@</td>
+					<td th:text="${equipamento.setor}"></td>
+					<td th:text="${equipamento.ult_consumo}"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	<script type="text/javascript"
+		src="https://www.gstatic.com/charts/loader.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+
+
+	<script type="text/javascript">
+		google.charts.load("current", {
+			packages : [ 'corechart' ]
+		});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+					[ 'Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime',
+							'General', 'Western', 'Literature', {
+								role : 'annotation'
+							} ], [ '2010', 10, 24, 20, 32, 18, 5, '' ],
+					[ '2020', 16, 22, 23, 30, 16, 9, '' ],
+					[ '2030', 28, 19, 29, 30, 12, 13, '' ] ]);
+
+			var view = new google.visualization.DataView(data);
+			view.setColumns([ 0,
+
+			1, {
+				calc : "stringify",
+				sourceColumn : 1,
+				type : "string",
+				role : "annotation"
+			}, 2, {
+				calc : "stringify",
+				sourceColumn : 2,
+				type : "string",
+				role : "annotation"
+			}, 3, {
+				calc : "stringify",
+				sourceColumn : 3,
+				type : "string",
+				role : "annotation"
+			}, 4, {
+				calc : "stringify",
+				sourceColumn : 4,
+				type : "string",
+				role : "annotation"
+			}
+
+			]);
+
+			var options = {
+				width : 600,
+				height : 400,
+				legend : {
+					position : 'top',
+					maxLines : 3
+				},
+				bar : {
+					groupWidth : '75%'
+				},
+				isStacked : true,
+			};
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById("columnchart_values"));
+			chart.draw(view, options);
+		}
+	</script>
+
 </body>
 </html>

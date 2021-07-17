@@ -18,9 +18,9 @@ public interface ConsumoRepository extends JpaRepository<Consumo, Long> {
 	@Query(value = "SELECT E.DESCRICAO AS EQUIPAMENTO, SUM(C.CONSUMO) AS CONSUMO, CAST(C.DATA_CRIACAO AS DATE) AS DIA "
 			+ "FROM CONSUMO C JOIN EQUIPAMENTO E "
 			+ "ON E.ID = C.EQUIPAMENTO_ID "
-			+ "WHERE C.DATA_CRIACAO > :dataInicio "
-			+ "AND C.DATA_CRIACAO < :dataFim "
+			+ "WHERE C.DATA_CRIACAO > '2021-07-01' "
+			+ "AND C.DATA_CRIACAO < '2021-07-08' "
 			+ "GROUP BY DIA, EQUIPAMENTO", nativeQuery = true)
-	List<GraficoHomeInterface> findByDatas(LocalDate dataInicio, LocalDate dataFim);
+	List<GraficoHomeInterface> findByDatas();
 	
 }
