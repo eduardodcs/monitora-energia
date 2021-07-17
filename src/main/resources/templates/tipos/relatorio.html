@@ -1,43 +1,29 @@
 <html>
-<head>
 <meta charset="UTF-8" />
-<style type="text/css">
-table {
-	border: 1px solid black;
-}
-
-td {
-	border: 1px solid black;
-	text-align: center;
-}
-</style>
-</head>
+<head th:replace="~{base :: head}"></head>
 <body>
-	<div class="mb-2">
-		<div class="col">
-			<nav class="nav">
-				<a class="nav-link" th:href="@{/home}">Home</a> <a class="nav-link"
-					th:href="@{/equipamentos/relatorio}">Equipamentos</a> <a
-					class="nav-link" th:href="@{/tipos/relatorio}">Tipos</a> <a
-					class="nav-link" th:href="@{/setores/relatorio}">Setores</a>
-			</nav>
-		</div>
+	<div th:replace="~{base :: menu}"></div>
+	<div class="container">
+		<h2>Lista de Tipos</h2>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">TIPO</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tipo : ${tipos}">
+					<th scope="row" th:text="${tipo.id}"></th>
+					<td th:text="${tipo.descricao}"></td>
+					<td><a href="#">Editar</a></td>
+					<td><a href="#">Inativar</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/tipos/formulario}">Cadastrar Novo</a>
 	</div>
-	<h1>Lista de Tipos</h1>
-	<a th:href="@{/tipos/formulario}">Cadastrar Novo</a>
-	<table>
-		<thead>
-			<tr>
-				<td>TIPO</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="tipo : ${tipos}">
-				<td th:text="${tipo.descricao}"></td>
-				<td><a href="#">Editar</a></td>
-				<td><a href="#">Inativar</a></td>
-			</tr>
-		</tbody>
-	</table>
 </body>
 </html>

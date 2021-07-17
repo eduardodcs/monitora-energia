@@ -8,6 +8,7 @@ public class MonitoraEnergiaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MonitoraEnergiaApplication.class, args);
+		
 	}
 
 }

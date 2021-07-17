@@ -1,77 +1,30 @@
 <html>
-<head>
 <meta charset="UTF-8" />
-<style type="text/css">
-table {
-	border: 1px solid black;
-}
-
-td {
-	border: 1px solid black;
-	text-align: center;
-}
-</style>
-<script type="text/javascript">
-
-
-</script>
-
-</head>
+<head th:replace="~{base :: head}"></head>
 <body>
-	<div class="mb-2">
-		<div class="col">
-			<nav class="nav">
-				<a class="nav-link" th:href="@{/home}">Home</a> <a class="nav-link"
-					th:href="@{/equipamentos/relatorio}">Equipamentos</a> <a
-					class="nav-link" th:href="@{/tipos/relatorio}">Tipos</a> <a
-					class="nav-link" th:href="@{/setores/relatorio}">Setores</a>
-			</nav>
-		</div>
+	<div th:replace="~{base :: menu}"></div>
+	<div class="container">
+		<h2>Últimos registros</h2>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">EQUIPAMENTO</th>
+					<th scope="col">TIPO</th>
+					<th scope="col">SETOR</th>
+					<th scope="col">ÚLTIMO REGISTRO</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="equipamento : ${equipamentos}">
+					<th scope="row" th:text="${equipamento.id}"></th>
+					<td th:text="${equipamento.descricao}"></td>
+					<td th:text="${equipamento.tipo}"></td>
+					<td th:text="${equipamento.setor}">@</td>
+					<td th:text="${equipamento.ult_consumo}">@</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-
-	<h1>Monitoramento de Energia</h1>
-
-	<table>
-		<thead>
-			<tr>
-				<td>ID</td>
-				<td>EQUIPAMENTO</td>
-				<td>TIPO</td>
-				<td>SETOR</td>
-				<td>ÚLTIMO REGISTRO</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="equipamento : ${equipamentos}">
-				<td th:text="${equipamento.id}"></td>
-				<td th:text="${equipamento.descricao}"></td>
-				<td th:text="${equipamento.tipo}"></td>
-				<td th:text="${equipamento.setor}"></td>
-				<td th:text="${equipamento.ult_consumo}"></td>
-			</tr>
-
-		</tbody>
-
-	</table>
-
-	<table>
-		<thead>
-			<tr>
-				<td>DIA</td>
-				<td>EQUIPAMENTO</td>
-				<td>CONSUMO</td>
-			</tr>
-		</thead>
-
-		<tbody>
-			<tr th:each="consumo : ${dadosConsumo}">
-				<td th:text="${consumo.dia}"></td>
-				<td th:text="${consumo.equipamento}"></td>
-				<td th:text="${consumo.consumo}"></td>
-			</tr>
-		</tbody>
-
-
-	</table>
 </body>
 </html>
