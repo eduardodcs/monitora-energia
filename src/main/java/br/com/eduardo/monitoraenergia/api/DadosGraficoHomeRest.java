@@ -29,11 +29,16 @@ public class DadosGraficoHomeRest {
 	private ConsumoRepository consumoRepository;
 	
 	@GetMapping
-	private List<GraficoHomeInterface> dadosConsumo() {
-		
-		List<GraficoHomeInterface> dadosGrafico = consumoRepository.findByDatas();
-		System.out.println(dadosGrafico);
-		
+	private List<GraficoHomeInterface> dadosConsumo(@RequestParam(value = "inicio", required = false) LocalDate inicio, @RequestParam(value = "fim", required = false) LocalDate fim) {
+		if(inicio == null || fim == null) {
+			inicio = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
+			fim = inicio.plusMonths(1);
+		} else {
+			fim = fim.plusDays(1);
+		}
+		System.out.println(inicio);
+		System.out.println(fim);
+		List<GraficoHomeInterface> dadosGrafico = consumoRepository.findByDatas(inicio, fim);
 		return dadosGrafico;
 		
 	}

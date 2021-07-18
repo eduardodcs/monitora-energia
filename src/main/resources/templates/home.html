@@ -4,8 +4,32 @@
 <body>
 	<div th:replace="~{base :: menu}"></div>
 	<div class="container">
-		<h2>Julho/2021</h2>
-		<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+		<h2>Consumo no de energia no período</h2>
+		<form method="GET">
+			<div class="row">
+				<div class="col">
+					<div class="form-group row">
+						<label for="inicio" class="col-sm-2 col-form-label">Inicio</label>
+						<div class="col-sm-10">
+							<input type=date id="inicio" class="form-control"
+								placeholder="Data Inicio">
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group row">
+						<label for="fim" class="col-sm-2 col-form-label">Fim</label>
+						<div class="col-sm-10">
+							<input type=date id="fim" class="form-control"
+								placeholder="Data Fim">
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-primary" onClick="buscar()">Buscar</button>
+				</div>
+		</form>
+		<div id="container" style="width: 100%; height: 400px;"></div>
 
 		<h2>Últimos registros</h2>
 		<table class="table">
@@ -29,68 +53,93 @@
 			</tbody>
 		</table>
 	</div>
-	<script type="text/javascript"
-		src="https://www.gstatic.com/charts/loader.js"></script>
+
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 	<script type="text/javascript">
-		google.charts.load("current", {
-			packages : [ 'corechart' ]
-		});
-		google.charts.setOnLoadCallback(drawChart);
-		function drawChart() {
-			var data = google.visualization.arrayToDataTable([
-					[ 'Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime',
-							'General', 'Western', 'Literature', {
-								role : 'annotation'
-							} ], [ '2010', 10, 24, 20, 32, 18, 5, '' ],
-					[ '2020', 16, 22, 23, 30, 16, 9, '' ],
-					[ '2030', 28, 19, 29, 30, 12, 13, '' ] ]);
+		function buscar() {
+			var dataInicio = document.getElementById("inicio").value;
+			var dataFim = document.getElementById("fim").value;
+			
+			dataInicio = dataInicio.split('-').reverse().join('/');
+			dataFim = dataFim.split('-').reverse().join('/');
 
-			var view = new google.visualization.DataView(data);
-			view.setColumns([ 0,
+			console.log(dataInicio + "  " + dataFim)
+			
+			$.ajax({
+				type : 'GET',
+				dataType : "json",
+				contentType : "apllication/json",
+				data : {
+					inicio : dataInicio,
+					fim : dataFim
+				},
+				url : 'api/dados',
+				success : function(result) {
+					array = []
+					for (i in result) {
+						array.push([ result[i].dia, result[i].consumo ])
+					}
+					criarGrafico(array);
+				}
+			})
+		}
 
-			1, {
-				calc : "stringify",
-				sourceColumn : 1,
-				type : "string",
-				role : "annotation"
-			}, 2, {
-				calc : "stringify",
-				sourceColumn : 2,
-				type : "string",
-				role : "annotation"
-			}, 3, {
-				calc : "stringify",
-				sourceColumn : 3,
-				type : "string",
-				role : "annotation"
-			}, 4, {
-				calc : "stringify",
-				sourceColumn : 4,
-				type : "string",
-				role : "annotation"
+		$.ajax({
+			type : 'GET',
+			dataType : "json",
+			contentType : "apllication/json",
+			url : 'api/dados',
+			success : function(result) {
+				array = []
+				for (i in result) {
+					array.push([ result[i].dia, result[i].consumo ])
+				}
+				criarGrafico(array);
 			}
+		})
 
-			]);
+		function criarGrafico(array) {
+			var chart = new Highcharts.chart('container', {
+				chart : {
+					type : 'column'
+				},
+				title : {
+					text : 'Browser market shares. January, 2018'
+				},
+				accessibility : {
+					announceNewData : {
+						enabled : true
+					}
+				},
+				xAxis : {
+					type : 'category'
+				},
+				yAxis : {
+					title : {
+						text : 'Consumo (kW)'
+					}
 
-			var options = {
-				width : 600,
-				height : 400,
+				},
 				legend : {
-					position : 'top',
-					maxLines : 3
+					enabled : false
 				},
-				bar : {
-					groupWidth : '75%'
-				},
-				isStacked : true,
-			};
-			var chart = new google.visualization.ColumnChart(document
-					.getElementById("columnchart_values"));
-			chart.draw(view, options);
+
+				series : [ {
+					name : "Consumo",
+					colorByPoint : true,
+					data : array
+				} ],
+
+			});
 		}
 	</script>
 

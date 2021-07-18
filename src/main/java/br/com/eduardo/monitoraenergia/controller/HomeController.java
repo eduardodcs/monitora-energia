@@ -25,9 +25,11 @@ public class HomeController {
 	private ConsumoRepository consumoRepository;
 	
 	@GetMapping
-	public String home(Model model){
+	public String home(Model model, LocalDate inicio, LocalDate fim){
 		List<RelatorioHomeInterface> equipamentos = equipamentoRepository.findByStatusAndUltimoConsumo();
+		List<GraficoHomeInterface> dados = consumoRepository.findByDatas(inicio, fim);
 		model.addAttribute("equipamentos", equipamentos);
+		model.addAttribute("dados", dados);
 		return "home";
 	}
 

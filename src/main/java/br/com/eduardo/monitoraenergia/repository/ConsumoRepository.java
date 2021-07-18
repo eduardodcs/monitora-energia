@@ -13,14 +13,21 @@ import br.com.eduardo.monitoraenergia.modelo.Consumo;
 public interface ConsumoRepository extends JpaRepository<Consumo, Long> {
 	
 	Optional<Consumo> findById(Long id);
+		
+//	@Query(value = "SELECT E.DESCRICAO AS EQUIPAMENTO, SUM(C.CONSUMO) AS CONSUMO, CAST(C.DATA_CRIACAO AS DATE) AS DIA "
+//			+ "FROM CONSUMO C JOIN EQUIPAMENTO E "
+//			+ "ON E.ID = C.EQUIPAMENTO_ID "
+//			+ "WHERE C.DATA_CRIACAO >= :inicio "
+//			+ "AND C.DATA_CRIACAO < :fim "
+//			+ "GROUP BY DIA, EQUIPAMENTO", nativeQuery = true)
+//	List<GraficoHomeInterface> findByDatas(LocalDate inicio, LocalDate fim);
 	
+	@Query(value = "SELECT CAST(C.DATA_CRIACAO AS DATE) AS DIA, SUM(C.CONSUMO) AS CONSUMO "
+			+ "FROM CONSUMO C "
+			+ "WHERE C.DATA_CRIACAO >= :inicio "
+			+ "AND C.DATA_CRIACAO < :fim "
+			+ "GROUP BY DIA", nativeQuery = true)
+	List<GraficoHomeInterface> findByDatas(LocalDate inicio, LocalDate fim);
 	
-	@Query(value = "SELECT E.DESCRICAO AS EQUIPAMENTO, SUM(C.CONSUMO) AS CONSUMO, CAST(C.DATA_CRIACAO AS DATE) AS DIA "
-			+ "FROM CONSUMO C JOIN EQUIPAMENTO E "
-			+ "ON E.ID = C.EQUIPAMENTO_ID "
-			+ "WHERE C.DATA_CRIACAO > '2021-07-01' "
-			+ "AND C.DATA_CRIACAO < '2021-07-08' "
-			+ "GROUP BY DIA, EQUIPAMENTO", nativeQuery = true)
-	List<GraficoHomeInterface> findByDatas();
 	
 }
